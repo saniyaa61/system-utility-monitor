@@ -43,7 +43,7 @@ func collectMetrics() (Metrics, error) {
 }
 
 func main() {
-	connection, err := net.Dial("tcp", "localhost:8081")
+	connection, err := net.Dial("tcp", "192.168.18.6:8081")
 	if err != nil {
 		fmt.Println("Unable to connect to server:", err)
 		return
@@ -63,7 +63,7 @@ func main() {
 			fmt.Println("Error sending metrics:", err)
 			return
 		}
-		
+
 		time.Sleep(5 * time.Second) // sends metrics every 5 seconds
 	}
 }
