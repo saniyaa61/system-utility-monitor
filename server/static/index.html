@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>System Utility Monitor</title>
+</head>
+
+<body>
+    <h1>System Utility Monitor</h1>
+    <p id="cpu">Loading...</p>
+    <p id="memory"></p>
+    <p id="disk"></p>
+    <p id="time"></p>
+
+    <script>
+        function loadMetrics() {
+            fetch("/metrics")
+                .then(response => response.json())
+                .then(data => {
+
+                    document.getElementById("cpu").innerHTML =
+                        "CPU Usage: " + data.cpu.toFixed(2) + "%";
+
+                    document.getElementById("memory").innerHTML =
+                        "Memory Usage: " + data.memory.toFixed(2) + "%";
+
+                    document.getElementById("disk").innerHTML =
+                        "Disk Usage: " + data.disk.toFixed(2) + "%";
+
+                    document.getElementById("time").innerHTML =
+                        "Timestamp: " + new Date(data.timestamp).toLocaleString();
+
+                });
+        }
+        loadMetrics();
+        setInterval(loadMetrics, 5000);
+    </script>
+
+</body>
+
+</html>
